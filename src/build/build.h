@@ -200,10 +200,10 @@ static void cmd_sync(Cli *cli) {
     char *path2 = cli_value(cli, "<Root2>", "Root 2 Path");
     bool gui = cli_flag(cli, "--gui", "Use unison GUI");
 
-    if(!match) return;
-    if(!path1 || !path2) return;
+    if (!match) return;
+    if (!path1 || !path2) return;
     Fmt *f = fmt_memory(G->tmp);
-    if(gui) {
+    if (gui) {
         fmt_s(f, "unison-gui");
     } else {
         fmt_s(f, "unison");
