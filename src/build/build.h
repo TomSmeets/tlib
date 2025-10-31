@@ -198,11 +198,16 @@ static void cmd_sync(Cli *cli) {
     bool match = cli_command(cli, "sync", "Sync tlib with unison");
     char *path1 = cli_value(cli, "<Root1>", "Root 1 Path");
     char *path2 = cli_value(cli, "<Root2>", "Root 2 Path");
+    bool gui = cli_flag(cli, "--gui", "Use unison GUI");
 
     if(!match) return;
     if(!path1 || !path2) return;
     Fmt *f = fmt_memory(G->tmp);
-    fmt_s(f, "unison");
+    if(gui) {
+        fmt_s(f, "unison-gui");
+    } else {
+        fmt_s(f, "unison");
+    }
     fmt_ss(f, " '", path1, "'");
     fmt_ss(f, " '", path2, "'");
     fmt_s(f, " -path src/lib");
