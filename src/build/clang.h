@@ -2,7 +2,6 @@
 // clang.h - Wrapper for invoking clang
 #pragma once
 #include "lib/fmt.h"
-#include "lib/mem.h"
 
 // Target platform
 typedef enum {
@@ -11,22 +10,13 @@ typedef enum {
     Platform_Wasm,
 } Platform;
 
-TYPEDEF_STRUCT(Build_Source);
 TYPEDEF_STRUCT(Clang_Options);
-
-// Source paths
-struct Build_Source {
-    String path;
-    Build_Source *next;
-};
-
 struct Clang_Options {
     char *output_path;
     char *input_path;
     Platform platform;
     bool release;
     bool dynamic;
-    Build_Source *includes;
 };
 
 static char *platform_to_string(Platform p) {
@@ -47,12 +37,8 @@ static void clang_fmt(Fmt *fmt, Clang_Options opt) {
     fmt_s(fmt, " -Wno-format");
 
     // Inlcude paths
-    for (Build_Source *src = opt.includes; src; src = src->next) {
-        fmt_s(fmt, " -I");
-        fmt_str(fmt, src->path);
-        fmt_s(fmt, " --embed-dir=");
-        fmt_str(fmt, src->path);
-    }
+    fmt_s(fmt, " -Isrc");
+    fmt_s(fmt, " --embed-dir=src");
 
     // Language flags
     fmt_s(fmt, " -std=c23");
