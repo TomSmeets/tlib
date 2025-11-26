@@ -41,8 +41,9 @@ typedef _Bool bool;
 #endif
 static_assert(sizeof(bool) == 1);
 
-#define GUARD(x)                                                               \
-  if (!(x))                                                                    \
-  continue
+#define GUARD(x)                                                                                                                                     \
+    if (!(x)) continue
 
 #define if_not(x) if (!(x))
+
+typedef struct File File;
