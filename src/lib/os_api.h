@@ -8,18 +8,16 @@
 #define OS_IS_WINDOWS 0
 #define OS_IS_WASM 0
 #include "lib/os_api_linux.h"
-#endif
 
 // Windows
-#if _WIN32
+#elif _WIN32
 #define OS_IS_LINUX 0
 #define OS_IS_WINDOWS 1
 #define OS_IS_WASM 0
 #include "lib/os_api_windows.h"
-#endif
 
 // Webassembly
-#if __wasm__
+#elif __wasm__
 #define OS_IS_LINUX 0
 #define OS_IS_WINDOWS 0
 #define OS_IS_WASM 1
